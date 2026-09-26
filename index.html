@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ProteGlew | Tensión estable para proteger tu trabajo</title>
+<style>
+:root{
+  --azul:#075985; --azul2:#0ea5e9; --celeste:#e0f2fe;
+  --oscuro:#0f172a; --gris:#475569; --claro:#f8fafc;
+  --verde:#16a34a; --amarillo:#eab308; --rojo:#dc2626;
+}
+*{box-sizing:border-box;scroll-behavior:smooth}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;color:var(--oscuro);background:var(--claro);line-height:1.6}
+header{background:linear-gradient(135deg,#0c4a6e,#0284c7);color:white;position:sticky;top:0;z-index:10;box-shadow:0 2px 10px #0002}
+nav{max-width:1150px;margin:auto;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.logo{font-size:1.5rem;font-weight:800;letter-spacing:.5px}
+.logo span{color:#bae6fd}
+nav a{color:white;text-decoration:none;margin-left:14px;font-size:.92rem}
+nav a:hover{text-decoration:underline}
+.hero{padding:95px 20px 85px;background:linear-gradient(135deg,#e0f2fe,#fff);text-align:center}
+.badge{display:inline-block;background:#bae6fd;color:#075985;padding:7px 14px;border-radius:999px;font-weight:bold}
+.hero h1{font-size:clamp(2.5rem,7vw,5rem);margin:15px 0 5px;color:#075985}
+.hero h2{font-size:clamp(1.1rem,3vw,1.7rem);font-weight:500;color:#334155;margin-top:0}
+.hero p{max-width:760px;margin:25px auto;color:#475569;font-size:1.08rem}
+.btn{display:inline-block;background:#0284c7;color:#fff;text-decoration:none;padding:12px 22px;border-radius:10px;font-weight:bold;margin:5px;cursor:pointer;border:none}
+.btn:hover{background:#0369a1}
+section{max-width:1100px;margin:auto;padding:70px 20px}
+section h2{font-size:2rem;color:#075985;margin-top:0}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px}
+.card{background:white;border-radius:16px;padding:24px;box-shadow:0 5px 20px #0f172a12;border:1px solid #e2e8f0}
+.card h3{color:#075985;margin-top:0}
+.icon{font-size:2rem}
+.steps{counter-reset:step}
+.step{position:relative;padding:18px 18px 18px 60px;background:white;border-radius:12px;border-left:5px solid #0ea5e9;box-shadow:0 3px 12px #0000000d;margin-bottom:12px}
+.step:before{counter-increment:step;content:counter(step);position:absolute;left:16px;top:18px;width:30px;height:30px;border-radius:50%;background:#0284c7;color:white;text-align:center;line-height:30px;font-weight:bold}
+.status{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px}
+.status .card{border-top:6px solid}
+.green{border-color:var(--verde)!important}.yellow{border-color:var(--amarillo)!important}.red{border-color:var(--rojo)!important}.blue{border-color:#2563eb!important}
+.note{background:#fff7ed;border-left:5px solid #f97316;padding:18px;border-radius:10px;margin-top:15px}
+ul{padding-left:22px}
+.table{width:100%;border-collapse:collapse;background:white;border-radius:12px;overflow:hidden}
+.table th,.table td{padding:14px;border-bottom:1px solid #e2e8f0;text-align:left;vertical-align:top}
+.table th{background:#e0f2fe;color:#075985}
+.contact{background:#0f172a;color:white;border-radius:20px;margin-top:40px;margin-bottom:40px}
+.contact h2{color:#bae6fd}
+.contact .card{color:#0f172a}
+footer{background:#020617;color:#cbd5e1;text-align:center;padding:25px 15px}
+
+/* Estilos del Simulador Interactivo */
+.sim-panel{background:#0f172a;color:white;border-radius:16px;padding:25px;box-shadow:0 8px 30px rgba(0,0,0,0.2)}
+.sim-controls{display:flex;flex-direction:column;gap:15px;margin-bottom:25px;background:#1e293b;padding:20px;border-radius:12px}
+.sim-slider-group{display:flex;flex-direction:column;gap:8px}
+.sim-slider-group label{font-weight:bold;color:#bae6fd;display:flex;justify-content:space-between}
+.sim-slider{width:100%;height:10px;border-radius:5px;background:#334155;outline:none;-webkit-appearance:none;cursor:pointer}
+.sim-slider::-webkit-slider-thumb{-webkit-appearance:none;width:24px;height:24px;border-radius:50%;background:#0ea5e9;cursor:pointer;border:2px solid white}
+.preset-btns{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.btn-sm{background:#334155;color:white;border:none;padding:10px 14px;border-radius:6px;font-weight:bold;cursor:pointer;font-size:0.88rem}
+.btn-sm:hover{background:#0ea5e9}
+.sim-display-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:15px;margin-bottom:20px}
+.v-meter{background:#020617;border:2px solid #334155;border-radius:12px;padding:15px;text-align:center}
+.v-title{font-size:0.85rem;color:#94a3b8;text-transform:uppercase;letter-spacing:1px}
+.v-value{font-family:'Courier New',Courier,monospace;font-size:2.5rem;font-weight:bold;color:#0ea5e9;margin:5px 0}
+.v-status{font-size:0.85rem;font-weight:bold;padding:4px 8px;border-radius:4px;display:inline-block}
+.led-panel{display:flex;justify-content:space-around;background:#1e293b;padding:15px;border-radius:12px;align-items:center;margin-bottom:20px}
+.led-item{display:flex;flex-direction:column;align-items:center;gap:6px;font-size:0.8rem;color:#94a3b8;text-align:center}
+.led{width:18px;height:18px;border-radius:50%;background:#334155;box-shadow:inset 0 2px 4px rgba(0,0,0,0.5);transition:all 0.3s ease}
+.led.green-on{background:#22c55e;box-shadow:0 0 12px #22c55e}
+.led.yellow-on{background:#eab308;box-shadow:0 0 12px #eab308}
+.led.red-on{background:#ef4444;box-shadow:0 0 12px #ef4444}
+.led.blue-on{background:#3b82f6;box-shadow:0 0 12px #3b82f6}
+.load-demo{background:#1e293b;border-radius:12px;padding:20px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:10px}
+.bulb-icon{font-size:3.5rem;filter:grayscale(100%);opacity:0.3;transition:all 0.3s ease}
+.bulb-active{filter:grayscale(0%);opacity:1;drop-shadow:0 0 20px #eab308}
+
+@media(max-width:800px){
+ nav{flex-direction:column;align-items:flex-start}
+ nav a{display:inline-block;margin:4px 7px 0 0}
+ .hero{padding-top:65px}
+}
+</style>
+</head>
+<body>
+
+<header>
+<nav>
+  <div class="logo">⚡ Prote<span>Glew</span></div>
+  <div>
+    <a href="#inicio">Inicio</a>
+    <a href="#proyecto">Proyecto</a>
+    <a href="#funcionamiento">Funcionamiento</a>
+    <a href="#demostracion">Demostración</a>
+    <a href="#producto">Producto</a>
+    <a href="#contacto">Contacto</a>
+  </div>
+</nav>
+</header>
+
+<main>
+<section id="inicio" class="hero">
+  <span class="badge">Proyecto de Electromecánica</span>
+  <h1>ProteGlew</h1>
+  <h2>Tensión estable para proteger tu trabajo.</h2>
+  <p>Una propuesta de estabilizador automático de tensión orientada inicialmente a pequeños comercios y viviendas de Glew.</p>
+  <a class="btn" href="#proyecto">Conocer el proyecto</a>
+  <a class="btn" href="#demostracion">Probar Simulador</a>
+  <a class="btn" href="#contacto">Contacto</a>
+</section>
+
+<section id="proyecto">
+  <h2>¿Qué es ProteGlew?</h2>
+  <p>ProteGlew es la identidad del proyecto de un estabilizador automático de tensión. La propuesta busca controlar la tensión de entrada, corregir variaciones moderadas y desconectar la carga cuando los valores superan la capacidad de corrección del equipo.</p>
+  <div class="grid">
+    <div class="card"><div class="icon">⚡</div><h3>Problemática</h3><p>Las variaciones de tensión pueden afectar heladeras, congeladores, bombas, motores y herramientas eléctricas.</p></div>
+    <div class="card"><div class="icon">🔧</div><h3>Solución</h3><p>Un sistema automático que mide la tensión y selecciona etapas de corrección según la condición detectada.</p></div>
+    <div class="card"><div class="icon">🛡️</div><h3>Protección</h3><p>Ante valores que no pueden corregirse de manera segura, el sistema desconecta la carga.</p></div>
+  </div>
+</section>
+
+<section>
+  <h2>Necesidad y oportunidad</h2>
+  <div class="grid">
+    <div class="card">
+      <h3>Necesidad</h3>
+      <ul>
+        <li>Controlar la tensión eléctrica de entrada.</li>
+        <li>Detectar variaciones.</li>
+        <li>Corregir variaciones moderadas.</li>
+        <li>Mantener una salida más estable.</li>
+        <li>Desconectar la carga ante una tensión peligrosa.</li>
+        <li>Informar visualmente el estado del sistema.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Aplicaciones previstas</h3>
+      <ul>
+        <li>Heladeras y congeladores.</li>
+        <li>Bombas de agua.</li>
+        <li>Ventiladores.</li>
+        <li>Motores pequeños.</li>
+        <li>Herramientas eléctricas.</li>
+        <li>Equipos de refrigeración comercial.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="funcionamiento">
+  <h2>¿Cómo funciona?</h2>
+  <div class="steps">
+    <div class="step">Mide constantemente la tensión de entrada.</div>
+    <div class="step">Compara el valor recibido con el rango establecido.</div>
+    <div class="step">Determina si la tensión es baja, normal, alta o extrema.</div>
+    <div class="step">Activa automáticamente la etapa de corrección correspondiente.</div>
+    <div class="step">Entrega una tensión de salida más estable.</div>
+    <div class="step">Desconecta la carga si la tensión supera su capacidad de corrección.</div>
+  </div>
+</section>
+
+<!-- DEMOSTRACIÓN INTERACTIVA (AHORA UBICADA ARRIBA DE CONDICIONES DE FUNCIONAMIENTO) -->
+<section id="demostracion">
+  <h2>Demostración Interactiva en Vivo</h2>
+  <p>Probá tú mismo cómo reacciona ProteGlew cuando cambia la corriente de la calle. Mové la barra o hacé clic en los botones para simular distintas situaciones que pasan en las casas y comercios.</p>
+  
+  <div class="sim-panel">
+    <div class="sim-controls">
+      <div class="sim-slider-group">
+        <label>🔌 Corriente que viene de la calle (Voltios): <span id="v-input-label" style="color:#0ea5e9; font-size:1.3rem;">220 V</span></label>
+        <input type="range" min="140" max="280" value="220" class="sim-slider" id="voltage-slider">
+      </div>
+      <div class="preset-btns">
+        <button class="btn-sm" onclick="setVoltage(150)">🔴 Luz peligrosamente baja (150V)</button>
+        <button class="btn-sm" onclick="setVoltage(190)">🟡 Luz baja / débil (190V)</button>
+        <button class="btn-sm" onclick="setVoltage(220)">🟢 Luz perfecta (220V)</button>
+        <button class="btn-sm" onclick="setVoltage(245)">🟡 Luz alta (245V)</button>
+        <button class="btn-sm" onclick="setVoltage(270)">🔴 Luz peligrosamente alta (270V)</button>
+      </div>
+    </div>
+
+    <div class="sim-display-grid">
+      <div class="v-meter">
+        <div class="v-title">Luz que entra (Calle)</div>
+        <div class="v-value" id="vin-display">220V</div>
+        <div class="v-status" id="vin-status" style="background:#16a34a; color:white;">NORMAL</div>
+      </div>
+      <div class="v-meter">
+        <div class="v-title">Luz regulada que recibe tu aparato</div>
+        <div class="v-value" id="vout-display" style="color:#22c55e;">220V</div>
+        <div class="v-status" id="vout-status" style="background:#16a34a; color:white;">SEGURO</div>
+      </div>
+    </div>
+
+    <div class="led-panel">
+      <div class="led-item">
+        <div class="led blue-on" id="led-blue"></div>
+        <span>Encendido</span>
+      </div>
+      <div class="led-item">
+        <div class="led green-on" id="led-green"></div>
+        <span>🟢 Todo bien</span>
+      </div>
+      <div class="led-item">
+        <div class="led" id="led-yellow"></div>
+        <span>🟡 Corrigiendo luz</span>
+      </div>
+      <div class="led-item">
+        <div class="led" id="led-red"></div>
+        <span>🔴 Apagado por seguridad</span>
+      </div>
+    </div>
+
+    <div class="load-demo">
+      <div class="bulb-icon bulb-active" id="bulb">💡</div>
+      <div style="font-weight:bold; font-size:1.1rem;" id="load-status">Tu equipo está encendido y funcionando seguro</div>
+      <div style="font-size:0.95rem; color:#bae6fd; max-width:650px; line-height:1.5;" id="stage-desc">
+        La luz de la calle llega en un nivel normal (220V). El protector deja pasar la corriente directamente sin necesidad de ajustar nada.
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Condiciones de funcionamiento</h2>
+  <div class="status">
+    <div class="card yellow"><h3>🟡 Tensión baja</h3><p>Selecciona una etapa que permita elevar la tensión.</p></div>
+    <div class="card green"><h3>🟢 Tensión normal</h3><p>La carga funciona sin necesidad de corrección.</p></div>
+    <div class="card yellow"><h3>🟡 Tensión alta</h3><p>Selecciona una etapa que permita reducir la tensión.</p></div>
+    <div class="card red"><h3>🔴 Tensión extrema</h3><p>Si el valor no puede corregirse de manera segura, desconecta la carga.</p></div>
+  </div>
+</section>
+
+<section>
+  <h2>Indicadores de funcionamiento</h2>
+  <div class="grid">
+    <div class="card green"><h3>🟢 Verde</h3><p>Tensión de salida adecuada y carga conectada.</p></div>
+    <div class="card yellow"><h3>🟡 Amarillo</h3><p>El sistema está realizando una corrección.</p></div>
+    <div class="card red"><h3>🔴 Rojo</h3><p>Tensión fuera del rango y carga desconectada.</p></div>
+    <div class="card blue"><h3>🔵 Azul opcional</h3><p>Estabilizador encendido.</p></div>
+  </div>
+</section>
+
+<section id="producto">
+  <h2>Componentes principales</h2>
+  <div class="grid">
+    <div class="card"><h3>⚙️ Control y corrección</h3><p>Transformador con diferentes derivaciones, fuente regulable, sensor o circuito comparador y relés.</p></div>
+    <div class="card"><h3>🛡️ Protección</h3><p>Fusible e interruptor general.</p></div>
+    <div class="card"><h3>📊 Medición</h3><p>Voltímetro de entrada y voltímetro de salida.</p></div>
+    <div class="card"><h3>💡 Indicación</h3><p>Pilotos indicadores para mostrar el estado del sistema.</p></div>
+    <div class="card"><h3>🔌 Montaje</h3><p>Conductores, borneras y gabinete.</p></div>
+    <div class="card"><h3>💡 Carga de prueba</h3><p>Lámpara o pequeño motor para demostrar el funcionamiento.</p></div>
+  </div>
+</section>
+
+<section>
+  <h2>Prototipo escolar</h2>
+  <p>El prototipo se construirá completamente en baja tensión para facilitar una demostración segura. Una fuente regulable permitirá simular distintas condiciones de alimentación y se utilizará una lámpara o pequeño motor como carga de prueba.</p>
+  <div class="grid">
+    <div class="card"><h3>1. Entrada baja</h3><p>Se simula una tensión inferior al rango normal.</p></div>
+    <div class="card"><h3>2. Entrada normal</h3><p>La carga funciona sin necesidad de corrección.</p></div>
+    <div class="card"><h3>3. Entrada alta</h3><p>Se simula una tensión superior al rango normal.</p></div>
+  </div>
+  <div class="note"><strong>Seguridad:</strong> la maqueta deberá contar con protecciones, conexiones aisladas y un gabinete apropiado.</div>
+</section>
+
+<section>
+  <h2>Beneficios</h2>
+  <div class="grid">
+    <div class="card">Funcionamiento automático.</div>
+    <div class="card">Corrección de variaciones moderadas.</div>
+    <div class="card">Protección ante valores extremos.</div>
+    <div class="card">Indicación visual sencilla.</div>
+    <div class="card">Aplicación en comercios y viviendas.</div>
+    <div class="card">Posibilidad de adaptación a diferentes equipos.</div>
+    <div class="card">Uso de componentes accesibles.</div>
+    <div class="card">Integración de contenidos de Electromecánica.</div>
+  </div>
+</section>
+
+<section>
+  <h2>Las 4P + Servicio</h2>
+  <table class="table">
+    <tr><th>Aspecto</th><th>Propuesta</th></tr>
+    <tr><td><strong>Producto</strong></td><td>Estabilizador automático con control, corrección por etapas, protección ante valores extremos, indicadores, fusible, interruptor y gabinete.</td></tr>
+    <tr><td><strong>Precio</strong></td><td>Se determinará según componentes, potencia, gabinete, armado, pruebas, instalación, garantía y margen de ganancia.</td></tr>
+    <tr><td><strong>Público</strong></td><td>Kioscos, almacenes, carnicerías, heladerías, verdulerías, pequeños talleres, emprendimientos y viviendas con equipos eléctricos sensibles.</td></tr>
+    <tr><td><strong>Promoción</strong></td><td>Demostraciones, ferias escolares, exposiciones técnicas, redes sociales, folletos, afiches, casas de electricidad y ferreterías.</td></tr>
+    <tr><td><strong>Servicio</strong></td><td>Asesoramiento, selección del modelo, instalación por personal capacitado, prueba, explicación de uso, garantía, mantenimiento, reparación y atención posterior.</td></tr>
+  </table>
+</section>
+
+<section>
+  <h2>Estrategia comunicacional</h2>
+  <div class="grid">
+    <div class="card"><h3>🎯 Objetivo</h3><p>Dar a conocer ProteGlew entre pequeños comerciantes y vecinos de Glew y explicar de forma sencilla su funcionamiento.</p></div>
+    <div class="card"><h3>👥 Público</h3><p>Comerciantes, emprendedores, talleres, familias con equipos sensibles, electricistas y técnicos de la zona.</p></div>
+    <div class="card"><h3>📢 Mensaje</h3><p><strong>“Cuando la tensión cambia, ProteGlew la corrige.”</strong></p></div>
+    <div class="card"><h3>📱 Canales</h3><p>Instagram, Facebook, WhatsApp, folletos, afiches, ferias, exposiciones y demostraciones.</p></div>
+  </div>
+</section>
+
+<section>
+  <h2>Misión, visión y valores</h2>
+  <div class="grid">
+    <div class="card"><h3>Misión</h3><p>Desarrollar una solución electromecánica accesible que estabilice las variaciones de tensión y contribuya a proteger los equipos eléctricos.</p></div>
+    <div class="card"><h3>Visión</h3><p>Convertir ProteGlew en una propuesta local confiable y adaptable, con posibilidad de extenderse a otras localidades de Almirante Brown.</p></div>
+    <div class="card"><h3>Valores</h3><p>Seguridad, responsabilidad, innovación, accesibilidad, calidad y compromiso local.</p></div>
+  </div>
+</section>
+
+<section>
+  <h2>Limitaciones</h2>
+  <div class="note">
+    <ul>
+      <li>No genera electricidad.</li>
+      <li>No funciona como una batería.</li>
+      <li>No mantiene la alimentación durante un corte total.</li>
+      <li>No soluciona los problemas de la red eléctrica.</li>
+      <li>No reemplaza las protecciones reglamentarias.</li>
+      <li>No puede corregir cualquier valor de tensión.</li>
+      <li>No debe conectarse a cargas superiores a su capacidad.</li>
+    </ul>
+    <p>La versión escolar es únicamente demostrativa. Una versión comercial conectada a la red de 220 V requeriría cálculos eléctricos, aislamiento, puesta a tierra, protecciones y componentes correctamente dimensionados, además de instalación y revisión por personal habilitado.</p>
+  </div>
+</section>
+
+<section id="contacto" class="contact">
+  <h2>Contacto</h2>
+  <div class="grid">
+    <div class="card">
+      <h3>Integrantes del proyecto</h3>
+      <p><strong>Talerico Tomas:</strong> +54 11-7084-1506</p>
+      <p><strong>Torres Santiago:</strong> +54 11-7084-1506</p>
+      <p><strong>Bussetti Gonzalo:</strong> +54 11-7084-1506</p>
+      <p><strong>Gamarra Marco:</strong> +54 11-7084-1506</p>
+    </div>
+    <div class="card">
+      <h3>Ubicación</h3>
+      <p>Glew, Almirante Brown, Buenos Aires.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Conclusión</h2>
+  <p>ProteGlew es una propuesta electromecánica orientada a responder a las variaciones de tensión que pueden afectar a pequeños comercios y viviendas de Glew. El proyecto permite aplicar conocimientos de transformadores, medición, automatización, relés, protecciones y montaje de tableros.</p>
+  <p>El prototipo escolar demuestra una posible herramienta de protección y regulación desarrollada desde la especialidad de Electromecánica.</p>
+</section>
+</main>
+
+<footer>
+  <strong>ProteGlew</strong> · Tensión estable para proteger tu trabajo.<br>
+  Proyecto de Electromecánica · Glew, Almirante Brown, Buenos Aires
+</footer>
+
+<script>
+const slider = document.getElementById('voltage-slider');
+const vInputLabel = document.getElementById('v-input-label');
+const vinDisplay = document.getElementById('vin-display');
+const voutDisplay = document.getElementById('vout-display');
+const vinStatus = document.getElementById('vin-status');
+const voutStatus = document.getElementById('vout-status');
+const ledGreen = document.getElementById('led-green');
+const ledYellow = document.getElementById('led-yellow');
+const ledRed = document.getElementById('led-red');
+const bulb = document.getElementById('bulb');
+const loadStatus = document.getElementById('load-status');
+const stageDesc = document.getElementById('stage-desc');
+
+function updateSimulation(vin) {
+  vInputLabel.textContent = vin + ' V';
+  vinDisplay.textContent = vin + 'V';
+  
+  let vout = 0;
+  
+  // Apagar LEDs
+  ledGreen.className = 'led';
+  ledYellow.className = 'led';
+  ledRed.className = 'led';
+  
+  if (vin < 170) {
+    // Tensión Extrema Baja
+    vout = 0;
+    vinStatus.textContent = 'MUY BAJA (PELIGRO)';
+    vinStatus.style.background = '#dc2626';
+    voutStatus.textContent = 'DESCONECTADO';
+    voutStatus.style.background = '#dc2626';
+    voutDisplay.style.color = '#ef4444';
+    
+    ledRed.className = 'led red-on';
+    bulb.className = 'bulb-icon';
+    loadStatus.textContent = '⛔ Tu equipo se apagó automáticamente para evitar que se queme';
+    stageDesc.textContent = 'La luz de la calle cayó a un nivel muy peligroso (' + vin + 'V). Como es tan baja que no se puede elevar de forma segura, el equipo corta la corriente por precaución.';
+  } else if (vin >= 170 && vin < 205) {
+    // Tensión Baja -> ELEVACIÓN
+    vout = Math.round(vin * 1.15);
+    vinStatus.textContent = 'LUZ DÉBIL / BAJA';
+    vinStatus.style.background = '#eab308';
+    voutStatus.textContent = 'CORREGIDO A NORMAL';
+    voutStatus.style.background = '#16a34a';
+    voutDisplay.style.color = '#22c55e';
+    
+    ledYellow.className = 'led yellow-on';
+    ledGreen.className = 'led green-on';
+    bulb.className = 'bulb-icon bulb-active';
+    loadStatus.textContent = '⚡ Tu equipo sigue encendido y seguro gracias al ajuste';
+    stageDesc.textContent = 'La luz viene baja desde la calle (' + vin + 'V). El protector le da un "empujón" automático para subirla a ' + vout + 'V y evitar que tu heladera o motor sufran o fuercen su motor.';
+  } else if (vin >= 205 && vin <= 235) {
+    // Tensión Normal -> DIRECTO
+    vout = vin;
+    vinStatus.textContent = 'LUZ PERFECTA';
+    vinStatus.style.background = '#16a34a';
+    voutStatus.textContent = 'CORRIENTE SECURA';
+    voutStatus.style.background = '#16a34a';
+    voutDisplay.style.color = '#22c55e';
+    
+    ledGreen.className = 'led green-on';
+    bulb.className = 'bulb-icon bulb-active';
+    loadStatus.textContent = '✅ Tu equipo funciona con la luz normal de la red';
+    stageDesc.textContent = 'La luz de la calle llega en un nivel ideal (' + vin + 'V). El equipo deja pasar la corriente directamente hacia tus electrodomésticos sin necesidad de tocar nada.';
+  } else if (vin > 235 && vin <= 260) {
+    // Tensión Alta -> REDUCCIÓN
+    vout = Math.round(vin * 0.88);
+    vinStatus.textContent = 'LUZ ALTA';
+    vinStatus.style.background = '#eab308';
+    voutStatus.textContent = 'CORREGIDO A NORMAL';
+    voutStatus.style.background = '#16a34a';
+    voutDisplay.style.color = '#22c55e';
+    
+    ledYellow.className = 'led yellow-on';
+    ledGreen.className = 'led green-on';
+    bulb.className = 'bulb-icon bulb-active';
+    loadStatus.textContent = '⚡ Tu equipo sigue encendido y seguro gracias al ajuste';
+    stageDesc.textContent = 'Vino un golpe de luz alta (' + vin + 'V). El protector reduce automáticamente la tensión sobrante para entregarle a tu aparato unos estables ' + vout + 'V.';
+  } else {
+    // Tensión Extrema Alta
+    vout = 0;
+    vinStatus.textContent = 'MUY ALTA (PELIGRO)';
+    vinStatus.style.background = '#dc2626';
+    voutStatus.textContent = 'DESCONECTADO';
+    voutStatus.style.background = '#dc2626';
+    voutDisplay.style.color = '#ef4444';
+    
+    ledRed.className = 'led red-on';
+    bulb.className = 'bulb-icon';
+    loadStatus.textContent = '⛔ Tu equipo se apagó automáticamente para evitar un cortocircuito';
+    stageDesc.textContent = 'Llegó un pico de tensión extremo (' + vin + 'V). El protector desconectó todo inmediatamente para que la sobrecarga no queme la placa ni los motores de tus artefactos.';
+  }
+  
+  voutDisplay.textContent = vout + 'V';
+}
+
+slider.addEventListener('input', (e) => {
+  updateSimulation(parseInt(e.target.value));
+});
+
+function setVoltage(v) {
+  slider.value = v;
+  updateSimulation(v);
+}
+</script>
+
+</body>
+</html>
